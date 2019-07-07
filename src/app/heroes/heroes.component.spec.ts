@@ -1,25 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+export class HeroesComponent implements OnInit {
+  heroes: Hero[];
 
-import { HeroesComponent } from './heroes.component';
+  constructor(private heroService: HeroService) { }
 
-describe('HeroesComponent', () => {
-  let component: HeroesComponent;
-  let fixture: ComponentFixture<HeroesComponent>;
+  ngOnInit() {
+    this.getHeroes();
+  }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HeroesComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HeroesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  getHeroes(): void {
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
+  }
+}
